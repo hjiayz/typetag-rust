@@ -10,7 +10,7 @@ module.exports = (t) => {
         .verify((o) => isInt(o) && o < (1 << 31) && o >= (-1 << 31)).define("i32").define("isize")
         .verify((o) => typeof o == "number").define("f64")
     t.generic.verify((o, p) => Array.isArray(o) && o.every((v) => p.is(v))).paramtype(i.type).define("slice");
-    i.slice.new(i.type, "slice<type>");
-    t.generic.verify((o, p) => Array.isArray(o) && (o.length == p.length) && o.every((v, i) => p[i].is(v))).paramtype(i.slice<type>).define("tuple");
-    
+    i.slice.new(i.type, "slice_type");
+    t.generic.verify((o, p) => Array.isArray(o) && (o.length == p.length) && o.every((v, i) => p[i].is(v))).paramtype(i.slice_type).define("tuple");
+
 }
