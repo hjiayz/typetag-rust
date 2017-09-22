@@ -18,6 +18,6 @@
   "homepage": "https://github.com/hjiayz/typetag-rusttype#readme",
   "dependencies": {},
   "devDependencies": {
-    "typetag": "^1.0.3"
+    "typetag": "git+https://github.com/hjiayz/typetag.git"
   }
 }
