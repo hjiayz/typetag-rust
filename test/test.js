@@ -20,3 +20,5 @@ enum_option_string_string.assert({ "some": ["nice", "boat"] });
 let option_i32 = i.option(i.i32);
 option_i32.assert(null);
 option_i32.assert(2147483647);
+let result_i32_bool = i.result([i.i32, i.bool]);
+result_i32_bool.assert({ "Ok": -2147483648 });
