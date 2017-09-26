@@ -1,5 +1,5 @@
 {
-  "name": "typetag-rusttype",
+  "name": "typetag-rust",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hjiayz/typetag-rusttype.git"
+    "url": "git+https://github.com/hjiayz/typetag-rust.git"
   },
   "author": "",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/hjiayz/typetag-rusttype/issues"
+    "url": "https://github.com/hjiayz/typetag-rust/issues"
   },
-  "homepage": "https://github.com/hjiayz/typetag-rusttype#readme",
+  "homepage": "https://github.com/hjiayz/typetag-rust#readme",
   "dependencies": {},
   "devDependencies": {
     "typetag": "git+https://github.com/hjiayz/typetag.git"
