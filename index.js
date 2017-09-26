@@ -9,9 +9,10 @@ module.exports = (t) => {
     raw((o) => isInt(o) && o < (1 << 15) && o >= (-1 << 15)).define("i16")
     raw((o) => isInt(o) && o <= (-1 >>> 1) && o >= (-1 << 31)).define("i32").define("isize")
     raw((o) => typeof o == "number").define("f64")
-    raw((o) => typeof o == "string").define("string")
+    raw((o) => typeof o == "string").define("string").define("str")
     raw((o) => typeof o == "boolean").define("bool")
-    generic((o, p) => Array.isArray(o) && o.every((v) => p.is(v)), type).define("slice");
+    raw((o) => i.string.is(o) && (o.length == 1)).define("char");
+    generic((o, p) => Array.isArray(o) && o.every((v) => p.is(v)), type).define("slice").define("vec").define("linkedlist");
     let slice_type = i.slice(type);
     generic((o, p) => Array.isArray(o) && (o.length == p.length) && o.every((v, i) => p[i].is(v)), slice_type).define("tuple");
     let tuple_type_usize = i.tuple([type, i.usize]);
