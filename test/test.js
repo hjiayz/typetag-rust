@@ -5,6 +5,8 @@ let rust = require("../index.js");
 t.load(rust);
 assert(!i.i16.is(1 << 15));
 assert(i.i16.is(1 << 15 - 1));
+i.char.assert("t");
+i.char.assert("型");
 let tuple_u8_u16_i32 = i.tuple([i.u8, i.u16, i.i32]);
 tuple_u8_u16_i32.assert([255, 111, -100]);
 let array_u8_3 = i.array([i.u8, 3]);
