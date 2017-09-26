@@ -1,27 +1,26 @@
 module.exports = (t) => {
     let i = t.index
+    let { raw, generic, type } = t;
     let isInt = Number.isInteger;
-    t.raw
-        .verify((o) => isInt(o) && o < 256 && o >= 0).define("u8")
-        .verify((o) => isInt(o) && o < (1 << 16) && o >= 0).define("u16")
-        .verify((o) => isInt(o) && o <= (-1 >>> 0) && o >= 0).define("u32").define("usize")
-        .verify((o) => isInt(o) && o < (1 << 7) && o >= (-1 << 7)).define("i8")
-        .verify((o) => isInt(o) && o < (1 << 15) && o >= (-1 << 15)).define("i16")
-        .verify((o) => isInt(o) && o <= (-1 >>> 1) && o >= (-1 << 31)).define("i32").define("isize")
-        .verify((o) => typeof o == "number").define("f64")
-        .verify((o) => typeof o == "string").define("string")
-    t.generic.verify((o, p) => Array.isArray(o) && o.every((v) => p.is(v))).paramtype(i.type).define("slice");
-    i.slice.new(i.type, "slice_type");
-    t.generic.verify((o, p) => Array.isArray(o) && (o.length == p.length) && o.every((v, i) => p[i].is(v))).paramtype(i.slice_type).define("tuple");
-    i.tuple.new([i.type, i.usize], "tuple_type_usize");
-    t.generic.verify((o, p) => Array.isArray(o) && (o.length == p[1]) && (o.every((v) => p[0].is(v)))).paramtype(i.tuple_type_usize).define("array");
-    i.array.new([i.type, 2], "array_type_2");
-    t.generic.verify((o, p) => o.constructor === Map && Array.from(o).every(v => p[0].is(v[0]) && p[1].is(v[1]))).paramtype(i.array_type_2).define("hashmap");
-    t.generic.verify((o, p) => o.constructor === Object && Object.values(o).every(v => p.is(v))).paramtype(i.type).define("hashmap_string");
-    i.hashmap_string.new(i.type, "map_string_type");
-    t.generic.verify((o, p) => (typeof o == "object") && (Object.keys(o).length === Object.keys(p).length) && Object.keys(p).every(k => p[k].is(o[k]))).paramtype(i.map_string_type).define("struct");
-    i.hashmap_string.new(i.slice_type, "map_string_slice_type");
-    t.generic.verify((o, p) => {
+    raw((o) => isInt(o) && o < 256 && o >= 0).define("u8");
+    raw((o) => isInt(o) && o < (1 << 16) && o >= 0).define("u16");
+    raw((o) => isInt(o) && o <= (-1 >>> 0) && o >= 0).define("u32").define("usize")
+    raw((o) => isInt(o) && o < (1 << 7) && o >= (-1 << 7)).define("i8")
+    raw((o) => isInt(o) && o < (1 << 15) && o >= (-1 << 15)).define("i16")
+    raw((o) => isInt(o) && o <= (-1 >>> 1) && o >= (-1 << 31)).define("i32").define("isize")
+    raw((o) => typeof o == "number").define("f64")
+    raw((o) => typeof o == "string").define("string")
+    generic((o, p) => Array.isArray(o) && o.every((v) => p.is(v)), type).define("slice");
+    let slice_type = i.slice(type);
+    generic((o, p) => Array.isArray(o) && (o.length == p.length) && o.every((v, i) => p[i].is(v)), slice_type).define("tuple");
+    let tuple_type_usize = i.tuple([type, i.usize]);
+    generic((o, p) => Array.isArray(o) && (o.length == p[1]) && (o.every((v) => p[0].is(v))), tuple_type_usize).define("array");
+    let array_type_2 = i.array([type, 2]);
+    generic((o, p) => o.constructor === Object && Object.values(o).every(v => p.is(v)), type).define("hashmap");
+    let map_type = i.hashmap(type);
+    t.generic((o, p) => (typeof o == "object") && (Object.keys(o).length === Object.keys(p).length) && Object.keys(p).every(k => p[k].is(o[k])), map_type).define("struct");
+    let map_slice_type = i.hashmap(slice_type);
+    t.generic((o, p) => {
         if (typeof o == "string") return p[o].length == 0;
         if (typeof o != "object") return false;
         let lit = Object.keys(o)[0];
@@ -29,5 +28,5 @@ module.exports = (t) => {
         let val = o[lit];
         if (types.length == 1) return types[0].is(val);
         return Array.isArray(val) && (types.length == val.length) && types.every((v, i) => v.is(val[i]))
-    }).paramtype(i.map_string_slice_type).define("enum");
+    }, map_slice_type).define("enum");
 }
