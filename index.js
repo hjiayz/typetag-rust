@@ -18,9 +18,9 @@ module.exports = (t) => {
     let array_type_2 = i.array([type, 2]);
     generic((o, p) => o.constructor === Object && Object.values(o).every(v => p.is(v)), type).define("hashmap");
     let map_type = i.hashmap(type);
-    t.generic((o, p) => (typeof o == "object") && (Object.keys(o).length === Object.keys(p).length) && Object.keys(p).every(k => p[k].is(o[k])), map_type).define("struct");
+    generic((o, p) => (typeof o == "object") && (Object.keys(o).length === Object.keys(p).length) && Object.keys(p).every(k => p[k].is(o[k])), map_type).define("struct");
     let map_slice_type = i.hashmap(slice_type);
-    t.generic((o, p) => {
+    generic((o, p) => {
         if (typeof o == "string") return p[o].length == 0;
         if (typeof o != "object") return false;
         let lit = Object.keys(o)[0];
