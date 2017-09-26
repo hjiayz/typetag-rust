@@ -29,4 +29,5 @@ module.exports = (t) => {
         if (types.length == 1) return types[0].is(val);
         return Array.isArray(val) && (types.length == val.length) && types.every((v, i) => v.is(val[i]))
     }, map_slice_type).define("enum");
+    generic((o, p) => (o === null) || p.is(o), type).define("option");
 }

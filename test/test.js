@@ -17,3 +17,6 @@ enum_option_string.assert({ "some": "nice" });
 let enum_option_string_string = i.enum({ "none": [], "some": [i.string, i.string] });
 enum_option_string_string.assert("none");
 enum_option_string_string.assert({ "some": ["nice", "boat"] });
+let option_i32 = i.option(i.i32);
+option_i32.assert(null);
+option_i32.assert(2147483647);
