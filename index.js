@@ -33,4 +33,5 @@ module.exports = (t) => {
     }, map_slice_type).define("enum");
     generic((o, p) => (o === null) || p.is(o), type).define("option");
     generic((o, p) => i.enum({ "Ok": [p[0]], "Err": [p[1]] }).is(o), array_type_2).define("result");
+    generic((o, p) => (typeof o == "function") && (typeof o.meta == "object") && (p[0].eq(o.meta.param)) && (p[1].eq(o.meta.result)), array_type_2).define("fn");
 }
