@@ -10,6 +10,7 @@ i.char.assert("t");
 i.char.assert("型");
 let tuple_u8_u16_i32 = i.tuple([i.u8, i.u16, i.i32]);
 tuple_u8_u16_i32.assert([255, 111, -100]);
+i.unit.assert([]);
 let array_u8_3 = i.array([i.u8, 3]);
 array_u8_3.assert([1, 2, 22])
 let struct_name_age = i.struct({ "name": i.string, "age": i.i8 });

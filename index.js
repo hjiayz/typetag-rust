@@ -15,6 +15,7 @@ module.exports = (t) => {
     generic((o, p) => Array.isArray(o) && o.every((v) => p.is(v)), type).define("slice").define("vec").define("linkedlist");
     let slice_type = i.slice(type);
     generic((o, p) => Array.isArray(o) && (o.length == p.length) && o.every((v, i) => p[i].is(v)), slice_type).define("tuple");
+    i.tuple([]).define("unit");
     let tuple_type_usize = i.tuple([type, i.usize]);
     generic((o, p) => Array.isArray(o) && (o.length == p[1]) && (o.every((v) => p[0].is(v))), tuple_type_usize).define("array");
     let array_type_2 = i.array([type, 2]);
