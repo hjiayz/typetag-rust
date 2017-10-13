@@ -1,4 +1,4 @@
-module.exports = (t) => {
+let rust = (t) => {
     let i = t.index
     let { raw, generic, type } = t;
     let isInt = Number.isInteger;
@@ -36,3 +36,5 @@ module.exports = (t) => {
     generic((o, p) => i.enum({ "Ok": [p[0]], "Err": [p[1]] }).is(o), array_type_2).define("result");
     generic((o, p) => (typeof o == "function") && (typeof o.meta == "object") && (p[0].eq(o.meta.param)) && (p[1].eq(o.meta.result)), array_type_2).define("fn");
 }
+rust.name = "rust"
+module.exports = rust;

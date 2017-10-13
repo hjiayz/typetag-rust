@@ -1,6 +1,6 @@
 {
   "name": "typetag-rust",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/hjiayz/typetag-rust#readme",
   "dependencies": {
-    "typetag": "^2.0.1",
-    "typetag-fn": "^1.0.0"
+    "typetag": "^2.0.3",
+    "typetag-fn": "^1.0.2"
   }
 }
