@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/hjiayz/typetag-rust#readme",
   "dependencies": {
-    "typetag": "^2.0.3",
+    "typetag": "^2.0.5",
     "typetag-fn": "^1.0.2"
   }
 }
